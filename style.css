@@ -134,6 +134,12 @@ html[data-theme="dark"] .wm-deal { filter: drop-shadow(0 0 10px rgba(232,185,90,
   border: 1px solid var(--m3-outline-var); box-shadow: var(--shadow-1);
   transition: color .2s, transform .2s, box-shadow .2s;
 }
+.top-links { display: flex; align-items: center; gap: 8px; }
+.about-pill.connect { gap: 6px; color: #fff; border-color: transparent;
+  background: linear-gradient(135deg, #e3ad3f, #a8741c);
+  box-shadow: 0 6px 14px -6px rgba(168,116,28,.8); }
+.about-pill.connect svg { width: 14px; height: 14px; }
+.about-pill.connect:hover { color: #fff; }
 .about-pill:hover { color: var(--m3-on-surface); transform: translateY(-1px); box-shadow: var(--shadow-2); }
 
 /* ---- Stage ------------------------------------------------------------ */
@@ -353,4 +359,14 @@ html[data-theme="dark"] .crown-word {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Small phones: the name and both pills must share one row. */
+@media (max-width: 400px) {
+  .topbar { padding-left: 12px; padding-right: 12px; }
+  .brand { gap: 7px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .wm { font-size: 18px; }
+  .top-links { gap: 6px; }
+  .about-pill { height: 31px; padding: 0 11px; font-size: 12.5px; }
 }
