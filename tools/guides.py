@@ -287,7 +287,7 @@ def main():
             f.write(page(st))
         print("wrote", st["slug"])
 
-    urls = [("", "1.0"), ("about/", "0.8")] + [(s["slug"] + "/", "0.9") for s in STORES + [CARD_GUIDE]]
+    urls = [("", "1.0"), (CARD_GUIDE["slug"] + "/", "1.0"), ("about/", "0.8")] + [(s["slug"] + "/", "0.9") for s in STORES]
     body = "\n".join(f"  <url><loc>{SITE}/{u}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>" for u, p in urls)
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n')
