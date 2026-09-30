@@ -1,0 +1,346 @@
+/* =========================================================================
+   BlinkDeal.live - the front door to four gold boards.
+
+   The wheel is the page. Everything else - the top bar, the gold drifting
+   behind, the credit - is there to frame it, so the background is one even
+   tone with a single round glow behind the dial, never bands.
+
+   The hub wears gold (ivory by day, a near-black vault by night). The colour
+   on the wheel is the four boards' own, so each quadrant already looks like
+   the board it opens.
+   ========================================================================= */
+
+:root {
+  --m3-primary:        #7a4f0c;
+  --m3-primary-soft:   #c8932f;
+  --m3-surface:        #fbf8f1;
+  --m3-surface-1:      #ffffff;
+  --m3-surface-2:      #f4efe4;
+  --m3-on-surface:     #1d1a16;
+  --m3-on-surface-var: #665d50;
+  --m3-outline-var:    #ebe3d2;
+  --glow:              rgba(240,196,98,.34);
+  --seg-op: .42; --seg-op-lit: .78;
+  --shadow-1: 0 1px 2px rgba(40,30,10,.08), 0 1px 3px rgba(40,30,10,.05);
+  --shadow-2: 0 3px 8px rgba(40,30,10,.10), 0 12px 28px rgba(40,30,10,.12);
+  --shadow-3: 0 16px 44px rgba(40,30,10,.22);
+  --dial-shadow: drop-shadow(0 24px 40px rgba(60,40,10,.22));
+  --font: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+  /* The wheel takes all the room the screen gives it. */
+  --w: min(94vw, 720px, max(300px, calc((100svh - 150px) / 1.13)));
+  --turn: 70s;
+}
+
+html[data-theme="dark"] {
+  --m3-primary:        #e8b95a;
+  --m3-primary-soft:   #c8932f;
+  --m3-surface:        #0e0c09;
+  --m3-surface-1:      #1a1712;
+  --m3-surface-2:      #221e17;
+  --m3-on-surface:     #f4eee3;
+  --m3-on-surface-var: #aca290;
+  --m3-outline-var:    #312b21;
+  --glow:              rgba(232,185,90,.18);
+  --seg-op: .5; --seg-op-lit: .9;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.45);
+  --shadow-2: 0 4px 16px rgba(0,0,0,.5);
+  --shadow-3: 0 18px 48px rgba(0,0,0,.65);
+  --dial-shadow: drop-shadow(0 24px 50px rgba(0,0,0,.7));
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+/* One screen, no scrolling: the wheel is sized to fit whatever screen it is on. */
+html, body { margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
+body {
+  height: 100vh; height: 100svh;
+  display: flex; flex-direction: column;
+  font-family: var(--font);
+  font-feature-settings: "cv11", "ss01";
+  color: var(--m3-on-surface);
+  background: var(--m3-surface);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.hoard { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* ---- Top bar ---------------------------------------------------------- */
+.topbar {
+  position: relative; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right));
+  max-width: 1200px; width: 100%; margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { position: relative; width: 40px; height: 40px; display: block;
+              filter: drop-shadow(0 4px 10px rgba(200,147,47,.45));
+              transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+.brand:hover .brand-mark { transform: scale(1.06); }
+/* ---- The wordmark ------------------------------------------------------
+   BLINK in ink, DEAL in gold. Every few seconds the name does what it says:
+   BLINK's letters shut and open like an eyelid - twice, quickly - then the I,
+   which is a lightning bolt, strikes with a flash, and a band of light runs
+   across DEAL. One 5-second loop, so the three beats always land in order. */
+.wm {
+  display: inline-flex; align-items: center;
+  font-size: 22px; font-weight: 900; letter-spacing: .035em; line-height: 1;
+  font-feature-settings: "ss01", "cv05";
+}
+.wm-blink { display: inline-flex; align-items: center; color: var(--m3-on-surface); }
+.wm-blink b { display: inline-block; font-weight: 900; transform-origin: 50% 55%;
+              animation: eyelid 5s cubic-bezier(.4,0,.2,1) infinite; }
+.wm-bolt {
+  width: .5em; height: 1.02em; margin: 0 .03em 0 .01em;
+  fill: url(#boltGold);
+  stroke: #a86a10; stroke-width: .7; stroke-linejoin: round; paint-order: stroke;
+  overflow: visible; transform-origin: 50% 50%;
+  filter: drop-shadow(0 1px 1px rgba(140,90,10,.35));
+  animation: bolt-strike 5s cubic-bezier(.22,1,.36,1) infinite;
+}
+.wm-deal {
+  margin-left: .08em;
+  background: linear-gradient(100deg, #b98224 0%, #e2a93a 30%, #fff4cc 46%, #f2c85c 54%, #c68d2a 75%, #a8741c 100%);
+  background-size: 260% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(122,79,12,.25));
+  animation: deal-flash 5s ease-in-out infinite;
+}
+html[data-theme="dark"] .wm-deal { filter: drop-shadow(0 0 10px rgba(232,185,90,.3)); }
+.brand:hover .wm-blink b, .brand:hover .wm-bolt, .brand:hover .wm-deal { animation-duration: 2.2s; }
+
+@keyframes eyelid {
+  0%, 62%, 66.5%, 69%, 73%, 100% { transform: scaleY(1); }
+  64%, 71% { transform: scaleY(.08); }
+}
+@keyframes bolt-strike {
+  0%, 74% { transform: none; filter: drop-shadow(0 1px 1px rgba(140,90,10,.35)); }
+  77% { transform: scale(1.45) rotate(-10deg); filter: drop-shadow(0 0 5px #ffd76a) drop-shadow(0 0 12px rgba(255,200,80,.9)) brightness(1.25); }
+  81% { transform: scale(.92) rotate(3deg); }
+  86%, 100% { transform: none; filter: drop-shadow(0 1px 1px rgba(140,90,10,.35)); }
+}
+@keyframes deal-flash {
+  0%, 76% { background-position: 100% 0; }
+  92%, 100% { background-position: 0% 0; }
+}
+
+/* ---- Stage ------------------------------------------------------------ */
+main { position: relative; z-index: 1; flex: 1; display: flex; align-items: center; justify-content: center;
+       overflow-x: clip; overflow-y: visible; }
+.stage {
+  position: relative; display: grid; place-items: center;
+  padding: calc(var(--w) * .115) 0 76px;
+  animation: rise 1s cubic-bezier(.2, .9, .25, 1.08) .15s both;
+}
+/* One round glow behind the dial - the only colour the background carries. */
+.stage::before {
+  content: ""; position: absolute; left: 50%; top: calc(var(--w) * .115 + var(--w) / 2);
+  width: calc(var(--w) * 1.7); height: calc(var(--w) * 1.7);
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  pointer-events: none; z-index: -1;
+}
+
+.wheel { position: relative; width: var(--w); height: var(--w); }
+
+/* The name rides above the rim, still while the wheel turns under it. */
+.crown { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 2; pointer-events: none; }
+.crown-word {
+  font-family: var(--font); font-weight: 900; font-size: 44px; letter-spacing: .12em;
+  fill: url(#foil);
+  stroke: rgba(122,79,12,.45); stroke-width: 1.2px; paint-order: stroke;
+  filter: drop-shadow(0 3px 0 rgba(122,79,12,.3)) drop-shadow(0 10px 18px rgba(200,147,47,.35));
+}
+html[data-theme="dark"] .crown-word {
+  stroke: rgba(0,0,0,.45);
+  filter: drop-shadow(0 3px 0 rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(232,185,90,.35));
+}
+
+.spin { position: absolute; inset: 0; animation: turn var(--turn) linear infinite; }
+.dial { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dial .rim { fill: var(--m3-surface-1); stroke: var(--m3-outline-var); stroke-width: 1.5; filter: var(--dial-shadow); }
+.dial .seg { opacity: var(--seg-op); transition: opacity .6s; }
+.dial .seg.lit { opacity: var(--seg-op-lit); }
+.dial .tick { stroke: var(--m3-on-surface-var); stroke-width: 1.1; opacity: .25; }
+.dial .tick.major { stroke: var(--m3-primary-soft); stroke-width: 2.2; opacity: .85; }
+.dial .inner { fill: var(--m3-surface-1); stroke: var(--m3-outline-var); stroke-width: 1.5; }
+
+/* Pause the wheel whenever someone is pointing at it. */
+.wheel:hover .spin, .wheel:hover .orb-face,
+.wheel:focus-within .spin, .wheel:focus-within .orb-face { animation-play-state: paused; }
+
+/* ---- The stores ------------------------------------------------------- */
+.orbs { position: absolute; inset: 0; }
+.orb {
+  --size: calc(var(--w) * .2);
+  position: absolute; left: 50%; top: 50%;
+  width: var(--size); height: var(--size);
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  transform: rotate(var(--a)) translateY(calc(var(--w) * -.3575)) rotate(calc(-1 * var(--a)));
+}
+.orb-face {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  animation: turn var(--turn) linear infinite reverse;
+  outline: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The icon: the board's own mark on the board's own gradient. */
+.orb-icon {
+  position: relative; display: grid; place-items: center;
+  width: 62%; aspect-ratio: 1; border-radius: 27%;
+  background: linear-gradient(140deg, var(--c1), var(--c2));
+  box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--c2) 55%, transparent), inset 0 1px 0 rgba(255,255,255,.4);
+  overflow: hidden;
+  transition: transform .35s cubic-bezier(.3,1.5,.5,1), box-shadow .35s;
+}
+.orb-icon svg { width: 60%; height: 60%; overflow: visible; }
+.orb-icon::after {                               /* foil sweep, as on each board */
+  content: ""; position: absolute; inset: -40%;
+  background: linear-gradient(100deg, transparent 42%, rgba(255,255,255,.6) 50%, transparent 58%);
+  transform: translateX(-120%); opacity: 0;
+}
+/* A ripple that says "press me". */
+.orb-face::before {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 62%; aspect-ratio: 1; border-radius: 30%;
+  transform: translate(-50%, -62%) scale(1);
+  border: 2px solid var(--c2); opacity: 0; pointer-events: none;
+}
+
+.orb-name {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 6%; padding: 3px 9px; border-radius: 999px;
+  font-size: clamp(10.5px, calc(var(--w) * .022), 13.5px); font-weight: 750; letter-spacing: -.01em;
+  white-space: nowrap;
+  background: var(--m3-surface-1); border: 1px solid var(--m3-outline-var);
+  box-shadow: var(--shadow-1);
+  transition: background .3s, color .3s, border-color .3s, box-shadow .3s;
+}
+.orb-name .go { width: 0; height: 1em; opacity: 0; margin-left: -5px; transition: width .3s, opacity .3s, margin .3s; }
+
+/* The spotlit store, and any store under the pointer. */
+.orb.play .orb-icon, .orb-face:hover .orb-icon, .orb-face:focus-visible .orb-icon {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 14px 30px -6px color-mix(in srgb, var(--c2) 70%, transparent), 0 0 0 5px color-mix(in srgb, var(--c1) 28%, transparent);
+}
+.orb.play .orb-icon::after, .orb-face:hover .orb-icon::after { animation: foil .7s cubic-bezier(.3,.7,.3,1) .1s both; }
+.orb.play .orb-face::before { animation: ripple 1.4s ease-out .15s both; }
+.orb.play .orb-name, .orb-face:hover .orb-name, .orb-face:focus-visible .orb-name {
+  color: #fff; border-color: transparent;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  box-shadow: 0 6px 16px -4px color-mix(in srgb, var(--c2) 60%, transparent);
+}
+.orb.play .orb-name .go, .orb-face:hover .orb-name .go, .orb-face:focus-visible .orb-name .go {
+  width: 1em; opacity: 1; margin-left: 0;
+}
+.orb-face:focus-visible .orb-name { outline: 2px solid var(--m3-primary); outline-offset: 2px; }
+
+/* ---- Each board's own motion ------------------------------------------ */
+.my-rim, .my-bolt, .am-roll, .fk-coin, .fk-bag, .aj-coin, .aj-bag { transform-box: fill-box; transform-origin: center; }
+.aj-coin { transform-origin: center bottom; }
+.am-smile, .am-tip { stroke-dasharray: 40; stroke-dashoffset: 0; }
+
+.orb.play .my-rim,  .orb-face:hover .my-rim  { animation: my-ring .6s cubic-bezier(.22,1,.36,1) both; }
+.orb.play .my-bolt, .orb-face:hover .my-bolt { animation: my-strike .6s cubic-bezier(.22,1,.36,1) both; }
+.orb.play .am-roll,  .orb-face:hover .am-roll  { animation: am-rollin .75s cubic-bezier(.22,1,.36,1) both; }
+.orb.play .am-smile, .orb-face:hover .am-smile { animation: am-draw .55s cubic-bezier(.3,.7,.3,1) .12s both; }
+.orb.play .am-tip,   .orb-face:hover .am-tip   { animation: am-draw .3s ease .5s both; }
+.orb.play .fk-coin, .orb-face:hover .fk-coin { animation: fk-drop .9s cubic-bezier(.5,0,.8,.4) both; }
+.orb.play .fk-bag,  .orb-face:hover .fk-bag  { animation: fk-bounce .5s cubic-bezier(.22,1,.36,1) .5s both; }
+.orb.play .aj-coin, .orb-face:hover .aj-coin { animation: aj-drop .65s cubic-bezier(.34,1.4,.44,1) both; }
+.orb.play .aj-bag,  .orb-face:hover .aj-bag  { animation: aj-settle .5s cubic-bezier(.3,.7,.3,1) .3s both; }
+
+@keyframes my-ring   { 0% { transform: scale(.82); opacity: .35; } 60% { transform: scale(1.07); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes my-strike { 0% { opacity: .15; transform: scale(.7) translateY(-2px); } 40% { opacity: 1; transform: scale(1.22); }
+                       70% { opacity: .55; transform: scale(.97); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes am-rollin { 0% { transform: translateX(-7px) rotate(-150deg); opacity: .4; } 100% { transform: none; opacity: 1; } }
+@keyframes am-draw   { 0% { stroke-dashoffset: 40; opacity: .3; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+/* Flipkart's coin drops into the bag, then a fresh one appears on top. */
+@keyframes fk-drop   { 0% { transform: translateY(-4px) rotate(-20deg); } 55% { transform: translateY(7px) rotate(10deg); opacity: 1; }
+                       62% { transform: translateY(9px); opacity: 0; } 80% { transform: translateY(-3px) scale(.6); opacity: 0; }
+                       100% { transform: none; opacity: 1; } }
+@keyframes fk-bounce { 0% { transform: scaleY(1); } 35% { transform: scaleY(.88) translateY(1px); } 70% { transform: scaleY(1.05); } 100% { transform: scaleY(1); } }
+@keyframes aj-drop   { 0% { transform: translateY(-4px) rotate(-14deg); opacity: .55; } 60% { transform: translateY(5px) rotate(4deg); opacity: 1; } 100% { transform: translateY(0); } }
+@keyframes aj-settle { 0% { transform: scaleY(1); } 40% { transform: scaleY(.94) translateY(1px); } 100% { transform: none; } }
+
+/* ---- The centre ------------------------------------------------------- */
+.core {
+  position: absolute; left: 50%; top: 50%;
+  width: calc(var(--w) * .44); height: calc(var(--w) * .44);
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; pointer-events: none;
+}
+.core-mark { position: relative; width: calc(var(--w) * .16); aspect-ratio: 1; margin-bottom: calc(var(--w) * .022); }
+.core-coin { position: absolute; inset: 0; display: block; filter: drop-shadow(0 8px 16px rgba(160,105,20,.4)); }
+.core-coin svg, .brand-mark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+/* Shockwaves off the coin each time the bolt strikes. */
+.shock {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid #e6b24e; opacity: 0;
+  animation: shock 3.6s cubic-bezier(.1,.7,.3,1) infinite;
+}
+.shock.s2 { animation-delay: .18s; border-width: 1.5px; }
+
+/* The hand hangs off to the left, so the words themselves centre under the coin. */
+.core-cta {
+  position: relative; margin: 0;
+  font-size: clamp(14px, calc(var(--w) * .038), 24px); font-weight: 850; letter-spacing: -.025em;
+}
+.core-cta .tap { position: absolute; right: calc(100% + .3em); top: 50%; margin-top: -.55em;
+                 width: 1.05em; height: 1.05em; color: var(--m3-primary-soft); transform-origin: 40% 80%;
+                 animation: tap 1.6s ease-in-out infinite; }
+.core-sub {
+  margin: 3px 0 0; font-size: clamp(10.5px, calc(var(--w) * .022), 13px); font-weight: 600;
+  color: var(--m3-on-surface-var);
+}
+
+/* ---- The BlinkDeal.live coin: every few seconds the bolt strikes. ------ */
+.hb-bolt, .hb-ring, .hb-mill { transform-box: fill-box; transform-origin: center; }
+[data-mark] .hb-bolt { animation: hb-strike 3.6s cubic-bezier(.22,1,.36,1) infinite; }
+[data-mark] .hb-ring { animation: hb-ring 3.6s cubic-bezier(.22,1,.36,1) infinite; }
+[data-mark] .hb-mill { animation: turn 24s linear infinite; }
+.brand-mark .hb-bolt, .brand-mark .hb-ring { animation-delay: 1.8s; }
+
+@keyframes hb-strike { 0%, 70% { transform: none; filter: none; }
+                       74% { transform: scale(1.28) rotate(-6deg); filter: drop-shadow(0 0 6px #fff) brightness(1.2); }
+                       80% { transform: scale(.94); opacity: .6; }
+                       88%, 100% { transform: none; opacity: 1; filter: none; } }
+@keyframes hb-ring   { 0%, 70% { transform: none; } 76% { transform: scale(1.12); stroke-opacity: 1; } 90%, 100% { transform: none; } }
+@keyframes shock     { 0%, 72% { transform: scale(1); opacity: 0; } 74% { opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+
+/* ---- Credit ----------------------------------------------------------- */
+.site-credit {
+  position: fixed; left: 0; right: 0; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 3;
+  display: flex; justify-content: center; pointer-events: none;
+  animation: fadeUp .8s 1.2s both;
+}
+.credit-pill {
+  display: inline-flex; align-items: center; gap: 9px; pointer-events: auto;
+  padding: 6px 14px 6px 7px; border-radius: 999px;
+  font-size: 12.5px; color: var(--m3-on-surface-var);
+  background: color-mix(in srgb, var(--m3-surface-1) 86%, transparent);
+  border: 1px solid var(--m3-outline-var); box-shadow: var(--shadow-2);
+  backdrop-filter: blur(10px) saturate(1.3); -webkit-backdrop-filter: blur(10px) saturate(1.3);
+}
+.credit-pill img { height: 22px; width: auto; border-radius: 5px; }
+.credit-pill .handle { color: var(--m3-primary); font-weight: 700; }
+
+/* ---- Motion ----------------------------------------------------------- */
+@keyframes turn   { to { transform: rotate(360deg); } }
+@keyframes foil   { 0% { transform: translateX(-120%); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateX(120%); opacity: 0; } }
+@keyframes ripple { 0% { transform: translate(-50%, -62%) scale(1); opacity: .8; } 100% { transform: translate(-50%, -62%) scale(1.55); opacity: 0; } }
+@keyframes beat   { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.55); opacity: .6; } }
+@keyframes tap    { 0%, 55%, 100% { transform: none; } 25% { transform: translateY(2px) rotate(-8deg) scale(.92); } }
+@keyframes sheen  { 0%, 100% { background-position: 0% 0; } 50% { background-position: 100% 0; } }
+@keyframes rise   { from { opacity: 0; transform: translateY(40px) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

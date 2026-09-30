@@ -1,0 +1,84 @@
+<!doctype html>
+<!-- The link-preview card (1200x630) shown when blinkdeal.live is shared on
+     WhatsApp, X, Telegram... Rendered to ../og-image.png by tools/og.cmd. -->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: Inter, "Segoe UI", sans-serif; color: #1d1a16;
+    background:
+      radial-gradient(520px 520px at 905px 330px, rgba(240,196,98,.42), transparent 70%),
+      radial-gradient(700px 400px at 150px 80px, rgba(255,236,190,.7), transparent 70%),
+      #fbf8f1;
+    position: relative;
+  }
+  .left { position: absolute; left: 72px; top: 0; bottom: 0; width: 600px;
+          display: flex; flex-direction: column; justify-content: center; }
+  .brand { display: flex; align-items: center; gap: 22px; }
+  .coin { flex: none; width: 96px; height: 96px; filter: drop-shadow(0 12px 22px rgba(160,105,20,.45)); }
+  .wm { display: flex; align-items: center; font-size: 80px; font-weight: 900; letter-spacing: .02em; line-height: 1; }
+  .wm .bolt { width: 37px; height: 80px; margin: 0 3px 0 1px; }
+  .wm .deal { margin-left: 8px; background: linear-gradient(100deg, #b98224, #e9b547 40%, #f7d77e 55%, #c68d2a);
+              -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 { margin-top: 38px; font-size: 50px; font-weight: 850; letter-spacing: -.03em; line-height: 1.08; }
+  h1 em { font-style: normal; color: #b07a1e; }
+  p { margin-top: 18px; font-size: 25px; font-weight: 600; color: #665d50; line-height: 1.35; }
+  .url { margin-top: 34px; display: inline-flex; align-self: flex-start; align-items: center; gap: 10px;
+         padding: 12px 22px; border-radius: 999px; font-size: 24px; font-weight: 800;
+         color: #fff; background: linear-gradient(135deg, #d9a441, #a8741c);
+         box-shadow: 0 10px 24px -8px rgba(168,116,28,.7); }
+
+  .wheel { position: absolute; left: 700px; top: 110px; width: 410px; height: 410px; border-radius: 50%;
+           background: #fff; box-shadow: 0 30px 60px -20px rgba(60,40,10,.35), 0 0 0 1px #ebe3d2; }
+  .q { position: absolute; width: 50%; height: 50%; }
+  .q1 { right: 0; top: 0; border-top-right-radius: 100%; background: linear-gradient(135deg,#ffb0c8,#ffc3a0); }
+  .q2 { right: 0; bottom: 0; border-bottom-right-radius: 100%; background: linear-gradient(135deg,#ffd9a8,#ffbd80); }
+  .q3 { left: 0; bottom: 0; border-bottom-left-radius: 100%; background: linear-gradient(135deg,#b8d4ff,#92b8f2); }
+  .q4 { left: 0; top: 0; border-top-left-radius: 100%; background: linear-gradient(135deg,#c3ccd6,#a2adb9); }
+  .ring { position: absolute; inset: 10px; border-radius: 50%; overflow: hidden; }
+  .ring::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
+                 background: conic-gradient(#fff 0 .6deg, transparent .6deg 89.4deg, #fff 89.4deg 90.6deg, transparent 90.6deg 179.4deg,
+                                            #fff 179.4deg 180.6deg, transparent 180.6deg 269.4deg, #fff 269.4deg 270.6deg, transparent 270.6deg 359.4deg, #fff 359.4deg); }
+  .hub { position: absolute; left: 50%; top: 50%; width: 180px; height: 180px; margin: -90px 0 0 -90px;
+         border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px #ebe3d2; display: grid; place-items: center; }
+  .hub svg { width: 104px; height: 104px; filter: drop-shadow(0 8px 14px rgba(160,105,20,.4)); }
+  .ic { position: absolute; width: 76px; height: 76px; border-radius: 21px;
+        box-shadow: 0 10px 20px -6px rgba(0,0,0,.3); }
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="cf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c4"/><stop offset=".3" stop-color="#f4cd63"/><stop offset=".68" stop-color="#d59a2c"/><stop offset="1" stop-color="#9c6715"/></linearGradient>
+    <linearGradient id="cr" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#8a5a12"/><stop offset=".5" stop-color="#e6b24e"/><stop offset="1" stop-color="#fff0bd"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7a0"/><stop offset=".5" stop-color="#f0b93e"/><stop offset="1" stop-color="#c47f16"/></linearGradient>
+    <symbol id="coin" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="url(#cr)"/><circle cx="50" cy="50" r="42" fill="url(#cf)"/>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#fff6d6" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="1.6 3.1"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2.2"/>
+      <path d="M56.5 19 33.5 55h14l-4 26L67 45H53l3.5-26z" fill="#fff" stroke="#a36c16" stroke-opacity=".4" stroke-width="1.6" stroke-linejoin="round"/>
+      <ellipse cx="35" cy="29" rx="13" ry="5.5" fill="#fff" opacity=".45" transform="rotate(-34 35 29)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="left">
+  <div class="brand">
+    <svg class="coin"><use href="#coin"/></svg>
+    <div class="wm">BL<svg class="bolt" viewBox="0 0 12 24"><path d="M8.6 1 1.2 13.4h4.4L3.9 23l7-12.6H6.5L8.6 1z" fill="url(#bg)" stroke="#a86a10" stroke-width=".6" stroke-linejoin="round"/></svg>NK<span class="deal">DEAL</span></div>
+  </div>
+  <h1>Gold deals,<br><em>unlocked in a blink.</em></h1>
+  <p>Myntra · Amazon · Flipkart · Ajio – one tap to see which gold coins beat today's gold rate.</p>
+  <span class="url"><svg width="16" height="30" viewBox="0 0 12 24"><path d="M8.6 1 1.2 13.4h4.4L3.9 23l7-12.6H6.5L8.6 1z" fill="#fff"/></svg>blinkdeal.live</span>
+</div>
+
+<div class="wheel">
+  <div class="ring"><div class="q q1"></div><div class="q q2"></div><div class="q q3"></div><div class="q q4"></div></div>
+  <div class="hub"><svg><use href="#coin"/></svg></div>
+  <img class="ic" src="../marks/myntra.svg"   style="left:272px; top:62px">
+  <img class="ic" src="../marks/amazon.svg"   style="left:272px; top:272px">
+  <img class="ic" src="../marks/flipkart.svg" style="left:62px;  top:272px">
+  <img class="ic" src="../marks/ajio.svg"     style="left:62px;  top:62px">
+</div>
+</body></html>

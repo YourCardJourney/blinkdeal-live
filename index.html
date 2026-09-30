@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlinkDeal</title>
+<meta name="description" content="Gold deals, unlocked in a blink. Myntra, Amazon, Flipkart and Ajio gold coin deals on one wheel – tap a store to see which coins beat today's gold rate.">
+<link rel="canonical" href="https://blinkdeal.live/">
+<meta name="theme-color" content="#fbf8f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0c09" media="(prefers-color-scheme: dark)">
+
+<!-- What a shared link shows (WhatsApp, Telegram, X, LinkedIn, iMessage). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BlinkDeal">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://blinkdeal.live/">
+<meta property="og:title" content="BlinkDeal ⚡ Gold deals, unlocked in a blink">
+<meta property="og:description" content="Myntra · Amazon · Flipkart · Ajio – one tap to see which gold coins beat today's gold rate, before the deal is gone.">
+<meta property="og:image" content="https://blinkdeal.live/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BlinkDeal – a gold wheel with Myntra, Amazon, Flipkart and Ajio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BlinkDeal ⚡ Gold deals, unlocked in a blink">
+<meta name="twitter:description" content="Myntra · Amazon · Flipkart · Ajio – one tap to see which gold coins beat today's gold rate.">
+<meta name="twitter:image" content="https://blinkdeal.live/og-image.jpg">
+<meta name="apple-mobile-web-app-title" content="BlinkDeal">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="style.css">
+<script>
+  // The page follows the device's own light/dark setting - no toggle.
+  (function () {
+    var m = matchMedia("(prefers-color-scheme: dark)"), d = document.documentElement;
+    function set() { d.setAttribute("data-theme", m.matches ? "dark" : "light"); }
+    set();
+    if (m.addEventListener) m.addEventListener("change", set);
+  })();
+</script>
+</head>
+<body>
+
+<!-- Gold drifting down behind everything. Scenery, not content. -->
+<canvas class="hoard" id="hoard" aria-hidden="true"></canvas>
+
+<!-- Gradients for the BlinkDeal.live coin (the mark itself is drawn by app.js). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="coinFace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2c4"/>
+      <stop offset=".3" stop-color="#f4cd63"/>
+      <stop offset=".68" stop-color="#d59a2c"/>
+      <stop offset="1" stop-color="#9c6715"/>
+    </linearGradient>
+    <linearGradient id="boltGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe7a0"/>
+      <stop offset=".5" stop-color="#f0b93e"/>
+      <stop offset="1" stop-color="#c47f16"/>
+    </linearGradient>
+    <linearGradient id="coinRim" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#8a5a12"/>
+      <stop offset=".5" stop-color="#e6b24e"/>
+      <stop offset="1" stop-color="#fff0bd"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <a class="brand" href="./" aria-label="BlinkDeal home">
+    <span class="brand-mark" aria-hidden="true" data-mark></span>
+    <!-- The name blinks: BLINK's letters shut like an eyelid, twice; the I is a
+         bolt that then strikes; and a flash of light runs across DEAL. -->
+    <span class="wm" aria-hidden="true">
+      <span class="wm-blink"><b>B</b><b>L</b><svg class="wm-bolt" viewBox="0 0 12 24"><path d="M8.6 1 1.2 13.4h4.4L3.9 23l7-12.6H6.5L8.6 1z"/></svg><b>N</b><b>K</b></span><span class="wm-deal">DEAL</span>
+    </span>
+  </a>
+</header>
+
+<main>
+  <h1 class="sr-only">BlinkDeal – gold deals from Myntra, Amazon, Flipkart and Ajio</h1>
+
+  <section class="stage" aria-label="Pick a store">
+    <div class="wheel" id="wheel">
+
+      <svg class="crown" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <linearGradient id="foil" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="420" y2="0" spreadMethod="reflect">
+            <stop offset="0"   stop-color="#b98224"/>
+            <stop offset=".35" stop-color="#f2c85c"/>
+            <stop offset=".5"  stop-color="#fff3c8"/>
+            <stop offset=".65" stop-color="#f2c85c"/>
+            <stop offset="1"   stop-color="#c68d2a"/>
+            <animateTransform attributeName="gradientTransform" type="translate"
+                              values="0 0; 420 0" dur="6s" repeatCount="indefinite"/>
+          </linearGradient>
+          <path id="crownArc" d="M -6 200 A 206 206 0 0 1 406 200"/>
+        </defs>
+        <text class="crown-word">
+          <textPath href="#crownArc" startOffset="50%" text-anchor="middle">GOLDDEAL</textPath>
+        </text>
+      </svg>
+
+      <div class="spin">
+        <svg class="dial" viewBox="0 0 400 400" aria-hidden="true">
+          <defs id="grads"></defs>
+          <circle class="rim" cx="200" cy="200" r="197"/>
+          <g class="segs"></g>
+          <g class="ticks"></g>
+          <circle class="inner" cx="200" cy="200" r="92"/>
+        </svg>
+        <div class="orbs" id="orbs"></div>
+      </div>
+
+      <!-- The centre says what to do. -->
+      <div class="core">
+        <span class="core-mark" aria-hidden="true">
+          <span class="shock"></span><span class="shock s2"></span>
+          <span class="core-coin" data-mark></span>
+        </span>
+        <p class="core-cta">
+          <svg class="tap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 11.5V5.2a1.7 1.7 0 0 1 3.4 0v5.3"/>
+            <path d="M12.4 10.2V9a1.7 1.7 0 0 1 3.4 0v1.6M15.8 10.4a1.7 1.7 0 0 1 3.2.8v3.3c0 3.7-2.6 6.5-6.2 6.5h-.9c-2.2 0-3.6-.8-4.9-2.4L4.3 14.9a1.6 1.6 0 0 1 2.4-2.1L9 15"/>
+          </svg>
+          <b>Tap a store</b>
+        </p>
+        <p class="core-sub" id="coreSub">to open its gold deals</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-credit">
+  <span class="credit-pill">
+    <img src="yourcardjourney.png" alt="" onerror="this.style.display='none'">
+    <span>Shared by <a class="handle" href="https://yourcardjourney.store" rel="noopener">@YourCardJourney</a></span>
+  </span>
+</footer>
+
+<script src="hoard.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
