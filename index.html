@@ -26,6 +26,39 @@
 <meta name="twitter:description" content="Myntra · Amazon · Flipkart · Ajio – one tap to see which gold coins beat today's gold rate.">
 <meta name="twitter:image" content="https://blinkdeal.live/og-image.jpg">
 <meta name="apple-mobile-web-app-title" content="BlinkDeal">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://blinkdeal.live/#site",
+      "url": "https://blinkdeal.live/",
+      "name": "BlinkDeal",
+      "alternateName": "blinkdeal.live",
+      "description": "Gold deals, unlocked in a blink. Myntra, Amazon, Flipkart and Ajio gold coin deals on one wheel, each priced against today's gold rate.",
+      "inLanguage": "en-IN",
+      "publisher": { "@id": "https://yourcardjourney.store/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://yourcardjourney.store/#org",
+      "name": "YourCardJourney",
+      "url": "https://yourcardjourney.store/"
+    },
+    {
+      "@type": "ItemList",
+      "name": "Gold deal boards",
+      "itemListElement": [
+        { "@type": "SiteNavigationElement", "position": 1, "name": "Myntra gold coin deals (BlinkDeal)", "url": "https://blinkdeal.yourcardjourney.store/" },
+        { "@type": "SiteNavigationElement", "position": 2, "name": "Amazon gold deals", "url": "https://amazongold.yourcardjourney.store/" },
+        { "@type": "SiteNavigationElement", "position": 3, "name": "Flipkart gold deals", "url": "https://flipkartgold.yourcardjourney.store/" },
+        { "@type": "SiteNavigationElement", "position": 4, "name": "Ajio gold deals", "url": "https://ajiogold.yourcardjourney.store/" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://rsms.me/">
@@ -77,6 +110,7 @@
       <span class="wm-blink"><b>B</b><b>L</b><svg class="wm-bolt" viewBox="0 0 12 24"><path d="M8.6 1 1.2 13.4h4.4L3.9 23l7-12.6H6.5L8.6 1z"/></svg><b>N</b><b>K</b></span><span class="wm-deal">DEAL</span>
     </span>
   </a>
+  <a class="about-pill" href="about/">About</a>
 </header>
 
 <main>
@@ -142,5 +176,6 @@
 
 <script src="hoard.js"></script>
 <script src="app.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>
