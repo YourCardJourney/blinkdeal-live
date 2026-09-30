@@ -9,7 +9,7 @@
 (function () {
   "use strict";
 
-  var GA_ID = "";
+  var GA_ID = "G-V6RZ58W15P";
 
   if (!GA_ID || location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
 
