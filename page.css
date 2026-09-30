@@ -1,0 +1,85 @@
+/* Shared styles for the text pages (About and the store guides). */
+:root {
+    --bg: #fbf8f1; --card: #ffffff; --ink: #1d1a16; --muted: #665d50; --line: #ebe3d2;
+    --gold: #9a6612; --gold-soft: #c8932f; --glow: rgba(240,196,98,.3);
+    --shadow: 0 3px 8px rgba(40,30,10,.08), 0 12px 28px rgba(40,30,10,.08);
+  }
+  html[data-theme="dark"] {
+    --bg: #0e0c09; --card: #1a1712; --ink: #f4eee3; --muted: #aca290; --line: #312b21;
+    --gold: #e8b95a; --gold-soft: #c8932f; --glow: rgba(232,185,90,.14);
+    --shadow: 0 4px 16px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: Inter, "Segoe UI", Roboto, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased;
+    background: radial-gradient(900px 520px at 50% -140px, var(--glow), transparent 70%) no-repeat, var(--bg);
+  }
+  a { color: var(--gold); font-weight: 650; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar { max-width: 860px; margin: 0 auto; height: 64px; padding: 0 16px;
+            display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none !important; }
+  .brand svg.coin { width: 36px; height: 36px; filter: drop-shadow(0 4px 10px rgba(200,147,47,.45)); }
+  .wm { display: inline-flex; align-items: center; font-size: 20px; font-weight: 900; letter-spacing: .035em; }
+  .wm .bolt { width: .5em; height: 1.02em; margin: 0 .03em; }
+  .wm .deal { margin-left: .08em; background: linear-gradient(100deg, #b98224, #e9b547 45%, #c68d2a);
+              -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .home { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px;
+          font-size: 13.5px; font-weight: 700; color: var(--ink); background: var(--card);
+          border: 1px solid var(--line); box-shadow: var(--shadow); text-decoration: none !important; }
+  .home svg { width: 15px; height: 15px; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 18px 16px 40px; }
+  .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-soft); margin: 18px 0 8px; }
+  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.1; letter-spacing: -.03em; margin: 0 0 16px; font-weight: 850; }
+  h1 em { font-style: normal; color: var(--gold); }
+  .lede { font-size: 18px; color: var(--muted); margin: 0 0 30px; }
+  h2 { font-size: 22px; letter-spacing: -.02em; margin: 40px 0 14px; }
+
+  .stores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .store { display: flex; gap: 13px; align-items: flex-start; padding: 16px; border-radius: 16px;
+           background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow);
+           color: var(--ink); text-decoration: none !important; transition: transform .2s; }
+  .store:hover { transform: translateY(-2px); }
+  .store img { width: 44px; height: 44px; border-radius: 12px; flex: none; }
+  .store b { display: block; font-size: 16px; }
+  .store span { display: block; font-size: 14px; color: var(--muted); font-weight: 500; line-height: 1.45; margin-top: 2px; }
+
+  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  ol.steps li { counter-increment: s; position: relative; padding: 14px 16px 14px 58px; border-radius: 14px;
+                background: var(--card); border: 1px solid var(--line); }
+  ol.steps li::before { content: counter(s); position: absolute; left: 16px; top: 13px;
+                        width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+                        font-weight: 800; font-size: 14px; color: #fff;
+                        background: linear-gradient(135deg, #e6b24e, #a8741c); }
+  ol.steps b { display: block; }
+  ol.steps span { color: var(--muted); font-size: 15px; }
+
+  dl { margin: 0; }
+  dt { font-weight: 750; font-size: 16.5px; margin-top: 22px; }
+  dd { margin: 6px 0 0; color: var(--muted); }
+
+  .cta { margin: 44px 0 0; text-align: center; }
+  .cta a { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 999px;
+           font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;
+           background: linear-gradient(135deg, #d9a441, #a8741c); box-shadow: 0 10px 24px -8px rgba(168,116,28,.7); }
+  footer { text-align: center; padding: 10px 16px 34px; font-size: 13px; color: var(--muted); }
+  footer img { height: 20px; vertical-align: middle; border-radius: 4px; margin-right: 6px; }
+  .guides { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .guides a { font-size: 13.5px; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
+  .crumbs { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .crumbs a { font-weight: 600; }
+  .note { font-size: 13.5px; color: var(--muted); border-left: 3px solid var(--gold-soft); padding: 4px 0 4px 12px; margin: 22px 0 0; }
+  .store-hero { display: flex; align-items: center; gap: 14px; margin: 16px 0 8px; }
+  .store-hero img { width: 56px; height: 56px; border-radius: 15px; box-shadow: var(--shadow); }
+  ul.ticks { padding-left: 0; list-style: none; display: grid; gap: 8px; margin: 0; }
+  ul.ticks li { position: relative; padding-left: 26px; color: var(--muted); }
+  ul.ticks li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 9px; height: 9px; border-radius: 50%;
+                        background: linear-gradient(135deg, #f0c75e, #a8741c); }
+  ul.ticks b { color: var(--ink); }
+  @media (max-width: 560px) { .stores { grid-template-columns: 1fr; } }
