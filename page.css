@@ -83,3 +83,22 @@
                         background: linear-gradient(135deg, #f0c75e, #a8741c); }
   ul.ticks b { color: var(--ink); }
   @media (max-width: 560px) { .stores { grid-template-columns: 1fr; } }
+
+.top-right { display: flex; align-items: center; gap: 8px; }
+/* Light / dark switch. Dark is the default; the icon shows where a tap goes. */
+.theme-btn {
+  width: 34px; height: 34px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+  color: var(--ink); background: var(--card);
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+.theme-btn:hover { transform: translateY(-1px) rotate(-12deg); }
+.theme-btn svg { width: 17px; height: 17px; }
+html[data-theme="dark"] .theme-btn .moon,
+html:not([data-theme="dark"]) .theme-btn .sun { display: none; }
+@media (max-width: 400px) {
+  .home { padding: 8px 11px; font-size: 12.5px; }
+  .home .long { display: none; }
+  .wm { font-size: 18px; }
+}

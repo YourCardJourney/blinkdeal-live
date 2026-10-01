@@ -6,8 +6,7 @@
 <title>About BlinkDeal – gold coin deals on Myntra, Amazon, Flipkart &amp; Ajio</title>
 <meta name="description" content="BlinkDeal puts the gold coin and jewellery deals of Myntra, Amazon, Flipkart and Ajio – with their coupons and credit card offers – on one wheel. Each board prices every piece against today's gold rate, so you can see which ones cost less than the gold in them.">
 <link rel="canonical" href="https://blinkdeal.live/about/">
-<meta name="theme-color" content="#fbf8f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0c09" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0e0c09">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BlinkDeal">
 <meta property="og:locale" content="en_IN">
@@ -58,11 +57,11 @@
 }
 </script>
 <script>
+  // Dark by default for everyone; a visitor who picked light keeps light.
   (function () {
-    var m = matchMedia("(prefers-color-scheme: dark)"), d = document.documentElement;
-    function set() { d.setAttribute("data-theme", m.matches ? "dark" : "light"); }
-    set();
-    if (m.addEventListener) m.addEventListener("change", set);
+    var t = "dark";
+    try { if (localStorage.getItem("bdlive.theme") === "light") t = "light"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
   })();
 </script>
 <link rel="stylesheet" href="../page.css">
@@ -86,10 +85,16 @@
     </svg>
     <span class="wm" aria-hidden="true">BL<svg class="bolt" viewBox="0 0 12 24"><path d="M8.6 1 1.2 13.4h4.4L3.9 23l7-12.6H6.5L8.6 1z" fill="url(#bg)" stroke="#a86a10" stroke-width=".7" stroke-linejoin="round"/></svg>NK<span class="deal">DEAL</span></span>
   </a>
+  <span class="top-right">
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to light">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
+  </button>
   <a class="home" href="../">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-    Back to the wheel
+    Back<span class="long"> to the wheel</span>
   </a>
+  </span>
 </header>
 
 <main>
@@ -177,6 +182,7 @@
   <img src="../yourcardjourney.png" alt="">Shared by <a href="https://yourcardjourney.store">@YourCardJourney</a>
 </footer>
 
+<script src="../theme.js"></script>
 <script src="../analytics.js"></script>
 </body>
 </html>

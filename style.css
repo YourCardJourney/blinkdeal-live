@@ -126,6 +126,19 @@ html[data-theme="dark"] .wm-deal { filter: drop-shadow(0 0 10px rgba(232,185,90,
   92%, 100% { background-position: 0% 0; }
 }
 
+/* Light / dark switch. Dark is the default; the icon shows where a tap goes. */
+.theme-btn {
+  width: 34px; height: 34px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+  color: var(--m3-on-surface); background: color-mix(in srgb, var(--m3-surface-1) 80%, transparent);
+  border: 1px solid var(--m3-outline-var); box-shadow: var(--shadow-1);
+  transition: transform .2s, box-shadow .2s;
+}
+.theme-btn:hover { transform: translateY(-1px) rotate(-12deg); }
+.theme-btn svg { width: 17px; height: 17px; }
+html[data-theme="dark"] .theme-btn .moon,
+html:not([data-theme="dark"]) .theme-btn .sun { display: none; }
+
 /* A quiet way to the About page - never louder than the wheel. */
 .about-pill {
   display: inline-flex; align-items: center; height: 34px; padding: 0 15px; border-radius: 999px;
@@ -367,6 +380,8 @@ html[data-theme="dark"] .crown-word {
   .brand { gap: 7px; }
   .brand-mark { width: 32px; height: 32px; }
   .wm { font-size: 18px; }
-  .top-links { gap: 6px; }
-  .about-pill { height: 31px; padding: 0 11px; font-size: 12.5px; }
+  .top-links { gap: 5px; }
+  .about-pill { height: 31px; padding: 0 9px; font-size: 12.5px; }
+  .about-pill.connect svg { display: none; }
+  .theme-btn { width: 31px; height: 31px; }
 }

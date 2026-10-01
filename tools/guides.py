@@ -198,8 +198,7 @@ def page(st):
 <title>{html.escape(st['title'] if 'BlinkDeal' in st['title'] else st['title'] + ' – BlinkDeal')}</title>
 <meta name="description" content="{html.escape(st['desc'])}">
 <link rel="canonical" href="{url}">
-<meta name="theme-color" content="#fbf8f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0c09" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0e0c09">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BlinkDeal">
 <meta property="og:locale" content="en_IN">
@@ -220,11 +219,11 @@ def page(st):
 {json.dumps(ld, ensure_ascii=False, indent=2)}
 </script>
 <script>
+  // Dark by default for everyone; a visitor who picked light keeps light.
   (function () {{
-    var m = matchMedia("(prefers-color-scheme: dark)"), d = document.documentElement;
-    function set() {{ d.setAttribute("data-theme", m.matches ? "dark" : "light"); }}
-    set();
-    if (m.addEventListener) m.addEventListener("change", set);
+    var t = "dark";
+    try {{ if (localStorage.getItem("bdlive.theme") === "light") t = "light"; }} catch (e) {{}}
+    document.documentElement.setAttribute("data-theme", t);
   }})();
 </script>
 </head>
@@ -271,6 +270,7 @@ def page(st):
 
 {FOOTER}
 
+<script src="../theme.js"></script>
 <script src="../analytics.js"></script>
 </body>
 </html>

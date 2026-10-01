@@ -6,8 +6,7 @@
 <title>BlinkDeal</title>
 <meta name="description" content="Credit card gold deals, unlocked in a blink. Credit card offers, coupons and flash deals on gold coins from Myntra, Amazon, Flipkart and Ajio on one wheel – see which gold coins beat today's gold rate.">
 <link rel="canonical" href="https://blinkdeal.live/">
-<meta name="theme-color" content="#fbf8f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0c09" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0e0c09">
 
 <!-- What a shared link shows (WhatsApp, Telegram, X, LinkedIn, iMessage). -->
 <meta property="og:type" content="website">
@@ -66,12 +65,11 @@
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" href="style.css">
 <script>
-  // The page follows the device's own light/dark setting - no toggle.
+  // Dark by default for everyone; a visitor who picked light keeps light.
   (function () {
-    var m = matchMedia("(prefers-color-scheme: dark)"), d = document.documentElement;
-    function set() { d.setAttribute("data-theme", m.matches ? "dark" : "light"); }
-    set();
-    if (m.addEventListener) m.addEventListener("change", set);
+    var t = "dark";
+    try { if (localStorage.getItem("bdlive.theme") === "light") t = "light"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
   })();
 </script>
 </head>
@@ -112,6 +110,10 @@
     </span>
   </a>
   <nav class="top-links">
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to light">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
+  </button>
     <a class="about-pill" href="about/">About</a>
     <a class="about-pill connect" href="https://yourcardjourney.store/social.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
@@ -183,6 +185,7 @@
 
 <script src="hoard.js"></script>
 <script src="app.js"></script>
+<script src="theme.js"></script>
 <script src="analytics.js"></script>
 </body>
 </html>
