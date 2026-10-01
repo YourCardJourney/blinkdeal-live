@@ -110,7 +110,7 @@
     </span>
   </a>
   <nav class="top-links">
-    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to light">
+    <button class="theme-btn" id="themeBtn" data-theme-toggle type="button" aria-label="Switch to light">
     <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
     <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
   </button>
@@ -181,6 +181,11 @@
     <img src="yourcardjourney.png" alt="" onerror="this.style.display='none'">
     <span>Shared by <a class="handle" href="https://yourcardjourney.store" rel="noopener">@YourCardJourney</a></span>
   </span>
+  <!-- On phones the theme switch lives here, dressed like the credit pill beside it. -->
+  <button class="credit-pill theme-pill" data-theme-toggle type="button" aria-label="Switch to light">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
+  </button>
 </footer>
 
 <script src="hoard.js"></script>

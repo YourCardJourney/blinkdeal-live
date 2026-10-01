@@ -96,7 +96,9 @@
 .theme-btn:hover { transform: translateY(-1px) rotate(-12deg); }
 .theme-btn svg { width: 17px; height: 17px; }
 html[data-theme="dark"] .theme-btn .moon,
-html:not([data-theme="dark"]) .theme-btn .sun { display: none; }
+html:not([data-theme="dark"]) .theme-btn .sun,
+html[data-theme="dark"] [data-theme-toggle] .moon,
+html:not([data-theme="dark"]) [data-theme-toggle] .sun { display: none; }
 @media (max-width: 400px) {
   .home { padding: 8px 11px; font-size: 12.5px; }
   .home .long { display: none; }
